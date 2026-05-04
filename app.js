@@ -2,7 +2,7 @@
 // FRONTEND LOGIC (STANDALONE PWA)
 // ==========================================
 
-const API_URL = "https://script.google.com/macros/s/AKfycbxhoXaOnHaAo8s1ISUq4GCqa_WgHLc4n3-0DRKYJooCo37im3jqz7SITzRV53Fr47lyGw/exec"; // REPLACE THIS WITH YOUR APPS SCRIPT WEB APP URL
+const API_URL = "https://script.google.com/macros/s/AKfycbzmraykxQXzNeJr2UFSuLaOL-zBBDr3ijnHWR8ScBUADpcILSgKU5bBW9Ci8yZLMT1WmQ/exec"; // REPLACE THIS WITH YOUR APPS SCRIPT WEB APP URL
 
 // API Wrapper replacing google.script.run
 function apiCall(action, payload = {}) {
@@ -93,6 +93,7 @@ function handleLogin(e) {
     .catch(err => {
       btn.textContent = 'Login';
       btn.disabled = false;
+      console.error("Login fetch error:", err);
       document.getElementById('login-error').textContent = "Server error. Please try again.";
     });
 }
@@ -104,7 +105,7 @@ function handleLogout() {
   document.getElementById('login-screen').classList.remove('hidden');
   document.getElementById('login-screen').classList.add('active');
   document.getElementById('login-form').reset();
-  
+
   document.getElementById('ai-chat-btn').style.display = 'none';
   if (isAIChatOpen) toggleAIChat();
 }
