@@ -83,7 +83,7 @@ function handleLogin(e) {
           document.getElementById('nav-users').style.display = 'none';
         }
 
-        document.getElementById('ai-chat-btn').classList.remove('hidden');
+        document.getElementById('ai-chat-btn').style.display = 'flex';
 
         loadDashboard();
       } else {
@@ -105,7 +105,7 @@ function handleLogout() {
   document.getElementById('login-screen').classList.add('active');
   document.getElementById('login-form').reset();
   
-  document.getElementById('ai-chat-btn').classList.add('hidden');
+  document.getElementById('ai-chat-btn').style.display = 'none';
   if (isAIChatOpen) toggleAIChat();
 }
 
@@ -657,10 +657,10 @@ function toggleAIChat() {
   const widget = document.getElementById('ai-chat-widget');
   const btn = document.getElementById('ai-chat-btn');
   if (isAIChatOpen) {
-    widget.classList.remove('hidden');
+    widget.style.display = 'flex';
     btn.style.transform = 'scale(0)';
   } else {
-    widget.classList.add('hidden');
+    widget.style.display = 'none';
     btn.style.transform = 'scale(1)';
   }
 }

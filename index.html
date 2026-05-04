@@ -409,7 +409,7 @@
   </div>
 
   <!-- AI CHAT WIDGET -->
-  <div id="ai-chat-widget" class="glass-panel hidden" style="position: fixed; bottom: 80px; right: 20px; width: 350px; z-index: 1000; display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+  <div id="ai-chat-widget" class="glass-panel" style="position: fixed; bottom: 80px; right: 20px; width: 350px; z-index: 1000; display: none; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
     <div class="chat-header" style="padding: 12px 16px; background: var(--primary); color: white; border-radius: 12px 12px 0 0; display: flex; justify-content: space-between; align-items: center;">
       <h3 style="margin:0; font-size: 1rem; color: white;">✨ HR AI Assistant</h3>
       <button onclick="toggleAIChat()" style="background:none; border:none; color:white; cursor:pointer; font-size: 1.2rem;">&times;</button>
@@ -424,7 +424,7 @@
       <button class="btn btn-primary" onclick="sendAIMessage()" style="border-radius: 20px; padding: 8px 16px;">Send</button>
     </div>
   </div>
-  <button id="ai-chat-btn" class="btn btn-primary hidden" style="position: fixed; bottom: 20px; right: 20px; z-index: 999; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: transform 0.2s; cursor: pointer;" onclick="toggleAIChat()">✨</button>
+  <button id="ai-chat-btn" class="btn btn-primary" style="position: fixed; bottom: 20px; right: 20px; z-index: 999; border-radius: 50%; width: 56px; height: 56px; display: none; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: transform 0.2s; cursor: pointer;" onclick="toggleAIChat()">✨</button>
 
   <script src="app.js"></script>
 </body>
