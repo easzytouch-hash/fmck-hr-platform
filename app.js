@@ -83,6 +83,8 @@ function handleLogin(e) {
           document.getElementById('nav-users').style.display = 'none';
         }
 
+        document.getElementById('ai-chat-btn').classList.remove('hidden');
+
         loadDashboard();
       } else {
         document.getElementById('login-error').textContent = res.message;
@@ -102,6 +104,9 @@ function handleLogout() {
   document.getElementById('login-screen').classList.remove('hidden');
   document.getElementById('login-screen').classList.add('active');
   document.getElementById('login-form').reset();
+  
+  document.getElementById('ai-chat-btn').classList.add('hidden');
+  if (isAIChatOpen) toggleAIChat();
 }
 
 // ------------------------------------------
