@@ -249,6 +249,22 @@ function filterStaff() {
 }
 
 // ------------------------------------------
+// AUTO-FILL GEOPOLITICAL ZONE FROM STATE
+// ------------------------------------------
+function autoFillZone() {
+  const state = document.getElementById('f-state').value;
+  const zoneMap = {
+    'Benue':'North Central','Kogi':'North Central','Kwara':'North Central','Nasarawa':'North Central','Niger':'North Central','Plateau':'North Central','FCT':'North Central',
+    'Adamawa':'North East','Bauchi':'North East','Borno':'North East','Gombe':'North East','Taraba':'North East','Yobe':'North East',
+    'Jigawa':'North West','Kaduna':'North West','Kano':'North West','Katsina':'North West','Kebbi':'North West','Sokoto':'North West','Zamfara':'North West',
+    'Abia':'South East','Anambra':'South East','Ebonyi':'South East','Enugu':'South East','Imo':'South East',
+    'Akwa Ibom':'South South','Bayelsa':'South South','Cross River':'South South','Delta':'South South','Edo':'South South','Rivers':'South South',
+    'Ekiti':'South West','Lagos':'South West','Ogun':'South West','Ondo':'South West','Osun':'South West','Oyo':'South West'
+  };
+  document.getElementById('f-zone').value = zoneMap[state] || '';
+}
+
+// ------------------------------------------
 // AUDIT LOGS
 // ------------------------------------------
 let currentAuditPage = 1;
@@ -342,11 +358,17 @@ function editStaff(id) {
   document.getElementById('f-emp-type').value = staff.EmploymentType || 'Permanent';
   document.getElementById('f-status').value = staff.Status || 'Active';
 
+  // New bio-data fields
+  const formatD = (d) => d ? new Date(d).toISOString().split('T')[0] : '';
+  document.getElementById('f-dob').value = formatD(staff.DateOfBirth);
+  document.getElementById('f-state').value = staff.StateOfOrigin || '';
+  document.getElementById('f-lga').value = staff.LGA || '';
+  document.getElementById('f-zone').value = staff.GeopoliticalZone || '';
+
   document.getElementById('f-appt-cat').value = staff.AppointmentCategory || '';
   document.getElementById('f-salary-scale').value = staff.SalaryScale || '';
 
   // Format dates for input[type=date]
-  const formatD = (d) => d ? new Date(d).toISOString().split('T')[0] : '';
   document.getElementById('f-first-appt').value = formatD(staff.DateOfFirstAppointment);
   document.getElementById('f-absorption').value = formatD(staff.DateOfAbsorption);
   document.getElementById('f-confirmation').value = formatD(staff.DateOfConfirmation);
@@ -431,6 +453,10 @@ async function submitStaffForm() {
     SubmittedDocuments: document.getElementById('f-submitted-docs').value,
     MissingDocuments: document.getElementById('f-missing-docs').value,
     PassportUrl: document.getElementById('f-passport-url').value,
+    DateOfBirth: document.getElementById('f-dob').value,
+    StateOfOrigin: document.getElementById('f-state').value,
+    LGA: document.getElementById('f-lga').value,
+    GeopoliticalZone: document.getElementById('f-zone').value,
   };
 
   if (!data.FullName || !data.FolderNumber) {

@@ -281,6 +281,63 @@
               <div class="form-group"><label>IPPIS No.</label><input type="text" id="f-ippis" placeholder="e.g. 12345678"></div>
               <div class="form-group"><label>Cadre</label><input type="text" id="f-cadre" placeholder="e.g. Nursing Officer"></div>
               <div class="form-group"><label>Phone Number</label><input type="text" id="f-phone"></div>
+              <div class="form-group"><label>Date of Birth</label><input type="date" id="f-dob"></div>
+              <div class="form-group">
+                <label>State of Origin</label>
+                <select id="f-state" onchange="autoFillZone()">
+                  <option value="">-- Select State --</option>
+                  <option value="Abia">Abia</option>
+                  <option value="Adamawa">Adamawa</option>
+                  <option value="Akwa Ibom">Akwa Ibom</option>
+                  <option value="Anambra">Anambra</option>
+                  <option value="Bauchi">Bauchi</option>
+                  <option value="Bayelsa">Bayelsa</option>
+                  <option value="Benue">Benue</option>
+                  <option value="Borno">Borno</option>
+                  <option value="Cross River">Cross River</option>
+                  <option value="Delta">Delta</option>
+                  <option value="Ebonyi">Ebonyi</option>
+                  <option value="Edo">Edo</option>
+                  <option value="Ekiti">Ekiti</option>
+                  <option value="Enugu">Enugu</option>
+                  <option value="FCT">FCT (Abuja)</option>
+                  <option value="Gombe">Gombe</option>
+                  <option value="Imo">Imo</option>
+                  <option value="Jigawa">Jigawa</option>
+                  <option value="Kaduna">Kaduna</option>
+                  <option value="Kano">Kano</option>
+                  <option value="Katsina">Katsina</option>
+                  <option value="Kebbi">Kebbi</option>
+                  <option value="Kogi">Kogi</option>
+                  <option value="Kwara">Kwara</option>
+                  <option value="Lagos">Lagos</option>
+                  <option value="Nasarawa">Nasarawa</option>
+                  <option value="Niger">Niger</option>
+                  <option value="Ogun">Ogun</option>
+                  <option value="Ondo">Ondo</option>
+                  <option value="Osun">Osun</option>
+                  <option value="Oyo">Oyo</option>
+                  <option value="Plateau">Plateau</option>
+                  <option value="Rivers">Rivers</option>
+                  <option value="Sokoto">Sokoto</option>
+                  <option value="Taraba">Taraba</option>
+                  <option value="Yobe">Yobe</option>
+                  <option value="Zamfara">Zamfara</option>
+                </select>
+              </div>
+              <div class="form-group"><label>LGA of Origin</label><input type="text" id="f-lga" placeholder="e.g. Akko"></div>
+              <div class="form-group">
+                <label>Geopolitical Zone</label>
+                <select id="f-zone">
+                  <option value="">-- Auto-filled --</option>
+                  <option value="North Central">North Central</option>
+                  <option value="North East">North East</option>
+                  <option value="North West">North West</option>
+                  <option value="South East">South East</option>
+                  <option value="South South">South South</option>
+                  <option value="South West">South West</option>
+                </select>
+              </div>
               <div class="form-group">
                 <label>Staff Level</label>
                 <select id="f-staff-level">
