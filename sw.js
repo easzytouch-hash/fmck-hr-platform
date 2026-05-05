@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fmck-hr-v2';
+const CACHE_NAME = 'fmck-hr-v3';
 const ASSETS = [
   './index.html',
   './style.css',
