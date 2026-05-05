@@ -219,7 +219,7 @@ function renderStaffTable(data) {
     <td>${avatarHtml}</td>
     <td class="font-mono">${escapeHtml(staff.FolderNumber) || 'N/A'}</td>
     <td class="font-mono">${escapeHtml(staff.IPPISNo) || '-'}</td>
-    <td class="font-medium">${escapeHtml(staff.FullName) || 'Unknown'}</td>
+    <td class="font-medium" style="cursor:pointer; color: var(--primary); text-decoration: underline;" onclick="viewStaffProfile('${escapeHtml(staff.ID)}')">${escapeHtml(staff.FullName) || 'Unknown'}</td>
     <td>${escapeHtml(staff.Cadre) || 'N/A'}</td>
     <td><span class="badge ${escapeHtml(staff.StaffLevel) === 'Senior' ? 'badge-senior' : 'badge-junior'}">${escapeHtml(staff.StaffLevel) || 'N/A'}</span></td>
     <td>${escapeHtml(staff.Department) || 'N/A'}</td>
@@ -246,6 +246,82 @@ function filterStaff() {
   });
 
   renderStaffTable(filtered);
+}
+
+// ------------------------------------------
+// STAFF PROFILE VIEW (Read-Only)
+// ------------------------------------------
+function viewStaffProfile(id) {
+  const staff = currentStaffData.find(s => s.ID === id);
+  if (!staff) return;
+
+  document.getElementById('profile-modal').dataset.staffId = id;
+
+  // Avatar
+  const avatarEl = document.getElementById('profile-avatar');
+  if (staff.PassportUrl) {
+    avatarEl.innerHTML = `<img src="${staff.PassportUrl}" style="width:100%;height:100%;object-fit:cover;">`;
+  } else {
+    avatarEl.innerHTML = staff.FullName ? staff.FullName.charAt(0) : '?';
+  }
+
+  // Header
+  document.getElementById('profile-name').textContent = staff.FullName || 'Unknown';
+  document.getElementById('profile-cadre').textContent = staff.Cadre || 'N/A';
+
+  const levelBadge = document.getElementById('profile-level-badge');
+  levelBadge.textContent = staff.StaffLevel || 'N/A';
+  levelBadge.className = `badge ${staff.StaffLevel === 'Senior' ? 'badge-senior' : 'badge-junior'}`;
+  levelBadge.style.fontSize = '0.75rem';
+
+  const statusBadge = document.getElementById('profile-status-badge');
+  statusBadge.textContent = staff.Status || 'Active';
+  statusBadge.style.fontSize = '0.75rem';
+  statusBadge.style.background = staff.Status === 'Inactive' ? '#fee2e2' : '';
+  statusBadge.style.color = staff.Status === 'Inactive' ? '#991b1b' : '';
+
+  // Bio-data
+  const na = (v) => v || '—';
+  const fmtDate = (d) => {
+    if (!d) return '—';
+    try { return new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); }
+    catch(e) { return d; }
+  };
+
+  document.getElementById('p-folder').textContent = na(staff.FolderNumber);
+  document.getElementById('p-ippis').textContent = na(staff.IPPISNo);
+  document.getElementById('p-phone').textContent = na(staff.Phone);
+  document.getElementById('p-dept').textContent = na(staff.Department);
+  document.getElementById('p-dob').textContent = fmtDate(staff.DateOfBirth);
+  document.getElementById('p-emp-type').textContent = na(staff.EmploymentType);
+  document.getElementById('p-state').textContent = na(staff.StateOfOrigin);
+  document.getElementById('p-lga').textContent = na(staff.LGA);
+  document.getElementById('p-zone').textContent = na(staff.GeopoliticalZone);
+
+  // Appointments
+  document.getElementById('p-scale').textContent = na(staff.SalaryScale);
+  const glStep = staff.CurrentGradeLevel ? `GL ${staff.CurrentGradeLevel}${staff.CurrentStep ? ' / Step ' + staff.CurrentStep : ''}` : '—';
+  document.getElementById('p-gl-step').textContent = glStep;
+  document.getElementById('p-appt-cat').textContent = na(staff.AppointmentCategory);
+  document.getElementById('p-first-appt').textContent = fmtDate(staff.DateOfFirstAppointment);
+  document.getElementById('p-absorption').textContent = fmtDate(staff.DateOfAbsorption);
+  document.getElementById('p-confirmation').textContent = fmtDate(staff.DateOfConfirmation);
+  document.getElementById('p-last-promo').textContent = fmtDate(staff.DateOfLastPromotion);
+
+  // Credentials
+  document.getElementById('p-edu').textContent = na(staff.EducationalHistory);
+  document.getElementById('p-prof-qual').textContent = na(staff.ProfessionalQualifications);
+  document.getElementById('p-licenses').textContent = na(staff.Licenses);
+  document.getElementById('p-nysc').textContent = na(staff.NYSCStatus);
+  document.getElementById('p-prev-emp').textContent = na(staff.PreviousEmployment);
+  document.getElementById('p-submitted').textContent = na(staff.SubmittedDocuments);
+  document.getElementById('p-missing').textContent = na(staff.MissingDocuments);
+
+  document.getElementById('profile-modal').classList.remove('hidden');
+}
+
+function closeProfileModal() {
+  document.getElementById('profile-modal').classList.add('hidden');
 }
 
 // ------------------------------------------

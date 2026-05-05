@@ -465,6 +465,84 @@
     </div>
   </div>
 
+  <!-- STAFF PROFILE VIEW MODAL -->
+  <div id="profile-modal" class="modal-overlay hidden">
+    <div class="modal-content glass-card" style="max-width: 700px;">
+      <div class="modal-header">
+        <h3>Staff Profile</h3>
+        <button class="close-btn" onclick="closeProfileModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="profile-body" style="padding: 0;">
+
+        <!-- Profile Header -->
+        <div id="profile-header" style="display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem 2rem; background: linear-gradient(135deg, var(--primary), #064e3b); border-radius: 0; color: white;">
+          <div id="profile-avatar" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.5); overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.15); font-size: 2rem; font-weight: 700;"></div>
+          <div>
+            <h2 id="profile-name" style="margin: 0; font-size: 1.4rem; color: white;"></h2>
+            <p id="profile-cadre" style="margin: 4px 0 0; opacity: 0.85; font-size: 0.95rem;"></p>
+            <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+              <span id="profile-level-badge" class="badge" style="font-size: 0.75rem;"></span>
+              <span id="profile-status-badge" class="badge" style="font-size: 0.75rem;"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Sections -->
+        <div style="padding: 1.5rem 2rem;">
+
+          <!-- Bio-Data -->
+          <div style="margin-bottom: 1.5rem;">
+            <h4 style="margin: 0 0 0.75rem; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 6px;">📋 Bio-Data</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Folder Number</small><p id="p-folder" class="font-mono" style="margin: 2px 0; font-weight: 600;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">IPPIS No.</small><p id="p-ippis" class="font-mono" style="margin: 2px 0; font-weight: 600;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Phone</small><p id="p-phone" style="margin: 2px 0;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Department</small><p id="p-dept" style="margin: 2px 0;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Date of Birth</small><p id="p-dob" style="margin: 2px 0;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Employment Type</small><p id="p-emp-type" style="margin: 2px 0;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">State of Origin</small><p id="p-state" style="margin: 2px 0;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">LGA of Origin</small><p id="p-lga" style="margin: 2px 0;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Geopolitical Zone</small><p id="p-zone" style="margin: 2px 0;"></p></div>
+            </div>
+          </div>
+
+          <!-- Appointments -->
+          <div style="margin-bottom: 1.5rem;">
+            <h4 style="margin: 0 0 0.75rem; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 6px;">📅 Appointments & Promotions</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Salary Scale</small><p id="p-scale" style="margin: 2px 0; font-weight: 600;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Grade Level / Step</small><p id="p-gl-step" style="margin: 2px 0; font-weight: 600;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Appointment Category</small><p id="p-appt-cat" style="margin: 2px 0;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">First Appointment</small><p id="p-first-appt" style="margin: 2px 0;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Date of Absorption</small><p id="p-absorption" style="margin: 2px 0;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Date of Confirmation</small><p id="p-confirmation" style="margin: 2px 0;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Last Promotion</small><p id="p-last-promo" style="margin: 2px 0;"></p></div>
+            </div>
+          </div>
+
+          <!-- Credentials -->
+          <div style="margin-bottom: 1rem;">
+            <h4 style="margin: 0 0 0.75rem; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 6px;">🎓 Credentials & Documents</h4>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Educational History</small><p id="p-edu" style="margin: 2px 0; white-space: pre-wrap;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Professional Qualifications</small><p id="p-prof-qual" style="margin: 2px 0; white-space: pre-wrap;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Licenses</small><p id="p-licenses" style="margin: 2px 0;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">NYSC Status</small><p id="p-nysc" style="margin: 2px 0;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Previous Employment</small><p id="p-prev-emp" style="margin: 2px 0; white-space: pre-wrap;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Submitted Documents</small><p id="p-submitted" style="margin: 2px 0; white-space: pre-wrap;"></p></div>
+              <div><small style="color: var(--text-light); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px;">Missing Documents</small><p id="p-missing" style="margin: 2px 0; white-space: pre-wrap; color: #dc2626;"></p></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="editStaff(document.getElementById('profile-modal').dataset.staffId); closeProfileModal();">✏️ Edit Record</button>
+        <button class="btn btn-text" onclick="closeProfileModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- AI CHAT WIDGET -->
   <div id="ai-chat-widget" class="glass-panel" style="position: fixed; bottom: 80px; right: 20px; width: 350px; z-index: 1000; display: none; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
     <div class="chat-header" style="padding: 12px 16px; background: var(--primary); color: white; border-radius: 12px 12px 0 0; display: flex; justify-content: space-between; align-items: center;">
