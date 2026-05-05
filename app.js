@@ -197,6 +197,20 @@ function escapeHtml(unsafe) {
     .replace(/'/g, "&#039;");
 }
 
+// Convert Google Drive page URLs to direct-embeddable image URLs
+function driveImageUrl(url) {
+  if (!url) return '';
+  // Already a thumbnail URL
+  if (url.includes('drive.google.com/thumbnail')) return url;
+  // Convert Drive page URL: https://drive.google.com/file/d/FILE_ID/view...
+  const match = url.match(/\/file\/d\/([^\/]+)/);
+  if (match) return 'https://drive.google.com/thumbnail?id=' + match[1] + '&sz=w400';
+  // Convert open URL: https://drive.google.com/open?id=FILE_ID
+  const match2 = url.match(/[?&]id=([^&]+)/);
+  if (match2) return 'https://drive.google.com/thumbnail?id=' + match2[1] + '&sz=w400';
+  return url; // Return as-is if not a Drive URL
+}
+
 function renderStaffTable(data) {
   const tbody = document.getElementById('staff-table-body');
   tbody.innerHTML = '';
@@ -212,7 +226,7 @@ function renderStaffTable(data) {
     // Passport logic
     let avatarHtml = `<div class="avatar" style="width: 32px; height: 32px; font-size: 14px;">${staff.FullName ? staff.FullName.charAt(0) : '?'}</div>`;
     if (staff.PassportUrl) {
-      avatarHtml = `<img src="${staff.PassportUrl}" style="width:32px; height:32px; border-radius:50%; object-fit:cover;">`;
+      avatarHtml = `<img src="${driveImageUrl(staff.PassportUrl)}" style="width:32px; height:32px; border-radius:50%; object-fit:cover;">`;
     }
 
     tr.innerHTML = `
@@ -260,7 +274,7 @@ function viewStaffProfile(id) {
   // Avatar
   const avatarEl = document.getElementById('profile-avatar');
   if (staff.PassportUrl) {
-    avatarEl.innerHTML = `<img src="${staff.PassportUrl}" style="width:100%;height:100%;object-fit:cover;">`;
+    avatarEl.innerHTML = `<img src="${driveImageUrl(staff.PassportUrl)}" style="width:100%;height:100%;object-fit:cover;">`;
   } else {
     avatarEl.innerHTML = staff.FullName ? staff.FullName.charAt(0) : '?';
   }
@@ -465,7 +479,7 @@ function editStaff(id) {
   // Passport UI
   document.getElementById('f-passport-url').value = staff.PassportUrl || '';
   if (staff.PassportUrl) {
-    document.getElementById('f-passport-preview').src = staff.PassportUrl;
+    document.getElementById('f-passport-preview').src = driveImageUrl(staff.PassportUrl);
     document.getElementById('f-passport-preview').style.display = 'block';
     document.getElementById('f-passport-initials').style.display = 'none';
   } else {
