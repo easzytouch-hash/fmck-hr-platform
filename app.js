@@ -12,7 +12,18 @@ function apiCall(action, payload = {}) {
       headers: { 'Content-Type': 'text/plain' }, // Avoids CORS preflight issues in GAS
       body: JSON.stringify({ action, ...payload })
     })
-      .then(res => res.json())
+      .then(async res => {
+        const text = await res.text();
+        if (text.trim().startsWith('<')) {
+          console.error("Received HTML instead of JSON. This usually indicates a Google Apps Script deployment permissions issue or a Google Login redirect.", text);
+          throw new Error("Server Deployment Error: Ensure the Apps Script Web App is deployed as 'Execute as: Me' and 'Who has access: Anyone'.");
+        }
+        try {
+          return JSON.parse(text);
+        } catch (e) {
+          throw new Error("Invalid JSON from server.");
+        }
+      })
       .then(data => resolve(data))
       .catch(err => reject(err));
   });
@@ -94,7 +105,7 @@ function handleLogin(e) {
       btn.textContent = 'Login';
       btn.disabled = false;
       console.error("Login fetch error:", err);
-      document.getElementById('login-error').textContent = "Server error. Please try again.";
+      document.getElementById('login-error').textContent = err.message || "Server error. Please try again.";
     });
 }
 
