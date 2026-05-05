@@ -2,7 +2,7 @@
 // FRONTEND LOGIC (STANDALONE PWA)
 // ==========================================
 
-const API_URL = "https://script.google.com/macros/s/AKfycbzmraykxQXzNeJr2UFSuLaOL-zBBDr3ijnHWR8ScBUADpcILSgKU5bBW9Ci8yZLMT1WmQ/exec"; // REPLACE THIS WITH YOUR APPS SCRIPT WEB APP URL
+const API_URL = "https://script.google.com/macros/s/AKfycbyXdTWhF5ZF3B26sXqFYY1cIS9lQ2VpZ9LsjX7taBH1UKr7YCzYHFmvD1gitD1rrBrUow/exec"; // REPLACE THIS WITH YOUR APPS SCRIPT WEB APP URL
 
 // API Wrapper replacing google.script.run
 function apiCall(action, payload = {}) {
