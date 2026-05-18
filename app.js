@@ -241,6 +241,7 @@ function renderStaffTable(data) {
     <td>
       <button class="btn btn-text" style="padding: 4px 8px" onclick="editStaff('${escapeHtml(staff.ID)}')">Edit</button>
       <button class="btn btn-text" style="padding: 4px 8px; color: ${staff.Status === 'Inactive' ? 'green' : 'red'};" onclick="toggleStaffStatus('${escapeHtml(staff.ID)}')">${staff.Status === 'Inactive' ? 'Activate' : 'Deactivate'}</button>
+      ${currentUser && currentUser.Role === 'Admin' ? `<button class="btn btn-text" style="padding: 4px 8px; color: #b91c1c; font-weight:600;" onclick="deleteStaff('${escapeHtml(staff.ID)}', '${escapeHtml(staff.FullName)}')">🗑 Delete</button>` : ''}
     </td>
   `;
     tbody.appendChild(tr);
@@ -406,6 +407,24 @@ function toggleStaffStatus(id) {
       if (res.success) loadStaffDirectory(true);
     })
     .catch(err => showToast('Server error.', 'error'));
+}
+
+function deleteStaff(id, name) {
+  if (!currentUser || currentUser.Role !== 'Admin') {
+    showToast('Access denied. Only Admins can delete staff records.', 'error');
+    return;
+  }
+  const displayName = name || 'this staff member';
+  if (!confirm(`⚠️ WARNING: You are about to PERMANENTLY DELETE the record for:\n\n"${displayName}"\n\nThis action CANNOT be undone and will remove all data from the Staff, Appointments, and Credentials sheets.\n\nAre you absolutely sure?`)) return;
+  if (!confirm(`FINAL CONFIRMATION: Delete "${displayName}" permanently?`)) return;
+
+  showToast('Deleting staff record...', 'success');
+  apiCall('deleteStaffRecord', { currentUser, id })
+    .then(res => {
+      showToast(res.message, res.success ? 'success' : 'error');
+      if (res.success) loadStaffDirectory(true);
+    })
+    .catch(err => showToast('Server error during deletion.', 'error'));
 }
 
 // ------------------------------------------
